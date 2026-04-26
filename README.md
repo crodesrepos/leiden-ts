@@ -62,7 +62,7 @@ const q = modularity(graph, result.partition, 1.0);
 
 ## Cross-validation methodology
 
-Quality and performance claims are reproducible and gated. The full methodology is in [ADR-0004](docs/adr/0004-benchmark-methodology.md). Highlights:
+Quality and performance claims are reproducible and gated.
 
 **Parity gates** (one-sided — we do not fail when leiden-ts beats graspologic):
 
@@ -75,7 +75,7 @@ Quality and performance claims are reproducible and gated. The full methodology 
 
 **Diagnostic emit (NOT gates — printed but not gated):** NMI vs graspologic, ARI vs graspologic, n_communities agreement. Two correct implementations land at different equally-modular partitions whenever a node has tied ΔQ across communities — divergence at tied Q is not a regression.
 
-**The sarāb partition** (سراب — Arabic for *desert mirage*) is the codebase's name for the failure mode where a partition has the right modularity at a distance but the wrong structure on contact with truth. Pure Q-parity is blind to it; the anti-sarāb gate is the instrument that catches it. See [ADR-0004](docs/adr/0004-benchmark-methodology.md) for the full definition.
+**The sarāb partition** (سراب — Arabic for *desert mirage*) is the codebase's name for the failure mode where a partition has the right modularity at a distance but the wrong structure on contact with truth. Pure Q-parity is blind to it: two implementations can converge on different but equally-modular partitions, both of which disagree with the canonical/planted ground truth — Q says "we agree" while the structure says "we both got it wrong." The anti-sarāb gate is the instrument that catches it: anchor the truth-NMI threshold to graspologic's measured truth-recovery on the same graph minus 0.05, so the gate fails only when leiden-ts recovers the canonical answer materially worse than graspologic does on identical input. The Quranic image (24:39) is exact: *"the thirsty traveler thinks it is water until he comes to it and finds nothing."*
 
 ## Comparison with peer implementations
 
@@ -108,9 +108,9 @@ Quality and performance claims are reproducible and gated. The full methodology 
 
 ### What we deliberately diverge on
 
-- **Pure-TypeScript on typed arrays.** Every reference picks a different runtime; we own ours. See [ADR-0001](docs/adr/0001-pure-typescript-runtime.md) for the rationale.
-- **Documented tie-breaking and convergence.** Every reference leaves these undocumented or hidden behind RNG side-effects. We make both explicit in ADRs and assert them in property tests.
-- **Tighter cross-validation discipline.** [ADR-0004](docs/adr/0004-benchmark-methodology.md) defines the one-sided parity gates and the anti-sarāb gate; results trace to reproducible experiments under `bench/compare/`.
+- **Pure-TypeScript on typed arrays.** Every reference picks a different runtime; we own ours. The choice is load-bearing: native modules and WASM both create build-step artifacts and shipping friction that defeat the "runs verbatim in any V8/SpiderMonkey/JavaScriptCore host" property.
+- **Documented tie-breaking and convergence.** Every reference leaves these undocumented or hidden behind RNG side-effects. leiden-ts makes both explicit: tie-breaking is random via the seeded `Xoshiro128`; convergence is the conjunction of two paper-prescribed signals (`lmResult.moves === 0` per Traag 2019 Algorithm 1, plus `isAllSingletons` as a guard). Both are asserted in property tests.
+- **Tighter cross-validation discipline.** The one-sided parity gates and the anti-sarāb gate (defined in the *Cross-validation methodology* section above) are wired into both the test suite and the bench layer. Results trace to reproducible experiments under `bench/compare/`.
 - **`Partition` as a class with cached community totals.** Other implementations return raw partition dicts/lists. We carry pre-computed `Σᵢₙ(c)` and `Σₜₒₜ(c)` accumulators so subsequent passes (refinement, aggregation, warm-start) start from O(1) state instead of O(m) recomputation.
 
 ### What we explicitly do not do
