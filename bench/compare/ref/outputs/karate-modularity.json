@@ -1,0 +1,27 @@
+{
+  "fixture": "karate",
+  "graph": {
+    "n": 34,
+    "m": 78,
+    "directed": false
+  },
+  "networkx_version": "3.6.1",
+  "partitions": {
+    "ground_truth_2_partition": {
+      "n_communities": 2,
+      "Q": 0.37146614069691,
+      "Q_resolution_2.0": -0.1288625904010519
+    },
+    "all_singletons": {
+      "n_communities": 34,
+      "Q": -0.049802761341222884,
+      "Q_resolution_2.0": -0.09960552268244577
+    },
+    "all_one_community": {
+      "n_communities": 1,
+      "Q": 0.0,
+      "Q_resolution_2.0": -1.0
+    }
+  },
+  "produced_at": "2026-04-25T16:10:56+00:00"
+}

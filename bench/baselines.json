@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "purpose": "Performance regression gates for `npm run bench`. Numbers are conservative ceilings, not measurements — they are intentionally slacker than the actual measured p50 to absorb variance across hardware while still catching catastrophic regression. Tighten only when the measured p50 has been stable below the new value for at least 5 runs on the reference machine.",
+    "reference_machine": "Apple M-series, Node 24+, 16GB+ RAM",
+    "ratio_p99_p50_max": 5,
+    "regression_factor_max": 1.5,
+    "last_measured_at": "2026-04-25",
+    "last_measured_machine": "Apple Silicon, Node v24.7.0",
+    "last_measured_results_p50_ms": {
+      "modularity n=1000 m=5000 k=10": 0.048,
+      "modularity n=5000 m=25000 k=25": 0.164,
+      "modularity n=10000 m=50000 k=50": 0.36,
+      "modularity n=50000 m=250000 k=100": 2.006
+    }
+  },
+  "budgets": {
+    "modularity n=1000 m=5000 k=10": {
+      "p50_ms_max": 0.5,
+      "label": "modularity small"
+    },
+    "modularity n=5000 m=25000 k=25": {
+      "p50_ms_max": 1.5,
+      "label": "modularity medium-small"
+    },
+    "modularity n=10000 m=50000 k=50": {
+      "p50_ms_max": 3,
+      "label": "modularity medium"
+    },
+    "modularity n=50000 m=250000 k=100": {
+      "p50_ms_max": 15,
+      "label": "modularity large"
+    },
+
+    "localMove n=1000 m=5000": {
+      "p50_ms_max": 5,
+      "label": "localMove small ER"
+    },
+    "localMove n=5000 m=25000": {
+      "p50_ms_max": 100,
+      "label": "localMove medium ER (slow convergence on structureless input)"
+    },
+    "localMove n=10000 m=50000": {
+      "p50_ms_max": 300,
+      "label": "localMove large ER (slow convergence on structureless input)"
+    },
+
+    "refine n=1000 m=5000": {
+      "p50_ms_max": 1.0,
+      "label": "refine small"
+    },
+    "refine n=5000 m=25000": {
+      "p50_ms_max": 3.0,
+      "label": "refine medium"
+    },
+    "refine n=10000 m=50000": {
+      "p50_ms_max": 5.0,
+      "label": "refine large"
+    },
+
+    "leiden n=1000 m=5000": {
+      "p50_ms_max": 15.0,
+      "label": "leiden full pipeline small"
+    },
+    "leiden n=5000 m=25000": {
+      "p50_ms_max": 200.0,
+      "label": "leiden full pipeline medium (ER graphs converge slowly without strong community structure)"
+    }
+  }
+}

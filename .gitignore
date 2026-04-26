@@ -1,0 +1,27 @@
+# Build artifacts
+dist/
+coverage/
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.swp
+
+# Python venv for the cross-validation reference harness
+bench/compare/ref/.venv/
+bench/compare/.venv/
+__pycache__/
+*.pyc
+
+# Ephemeral benchmark outputs (the *committed* reference values
+# in bench/compare/ref/outputs/ are tracked; the per-run TS
+# outputs in bench/compare/ts/outputs/ are not)
+bench/compare/ts/outputs/
+bench/compare/results.json
+bench/compare/results-history/
