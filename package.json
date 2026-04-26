@@ -63,7 +63,7 @@
     "fast-check": "^3.22",
     "tsup": "^8",
     "tsx": "^4.21.0",
-    "typescript": "^5.6",
+    "typescript": "^6.0",
     "vitest": "^2"
   },
   "publishConfig": {
