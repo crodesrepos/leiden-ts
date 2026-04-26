@@ -1,5 +1,11 @@
 # leiden-ts
 
+[![npm version](https://img.shields.io/npm/v/leiden-ts.svg)](https://www.npmjs.com/package/leiden-ts)
+[![CI](https://github.com/crodesrepos/leiden-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/crodesrepos/leiden-ts/actions/workflows/ci.yml)
+[![types: TypeScript](https://img.shields.io/npm/types/leiden-ts.svg)](https://www.typescriptlang.org)
+[![license: MIT](https://img.shields.io/npm/l/leiden-ts.svg)](LICENSE)
+[![node: >=20.10](https://img.shields.io/node/v/leiden-ts.svg)](package.json)
+
 > Pure-TypeScript implementation of the Leiden community-detection algorithm (Traag, Waltman & van Eck, 2019). Zero runtime dependencies. Faster than [graspologic](https://github.com/microsoft/graspologic) (the canonical Python reference, Java backend) across the standard benchmark portfolio.
 
 ## Headline
