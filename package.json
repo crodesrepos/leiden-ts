@@ -59,7 +59,7 @@
     "node": ">=20.10"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@types/node": "^25",
     "fast-check": "^3.22",
     "tsup": "^8",
     "tsx": "^4.21.0",
